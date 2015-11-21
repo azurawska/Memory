@@ -1,4 +1,4 @@
-package com.example.alexou.memory;
+package com.example.alexou.memory.view;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,6 +7,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.alexou.memory.R;
 
 
 public class Jeu_Activity extends Activity {

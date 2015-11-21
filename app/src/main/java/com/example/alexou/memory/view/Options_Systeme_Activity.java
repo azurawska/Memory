@@ -1,4 +1,4 @@
-package com.example.alexou.memory;
+package com.example.alexou.memory.view;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,45 +8,33 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.alexou.memory.R;
 
-public class MenuMemory extends Activity {
 
-    Button btn_A_Propos;
+public class Options_Systeme_Activity extends Activity {
 
-    Button btn_jouer;
-
-    Button btn_Options_Systeme;
+    Button btnSon;
+    Button btnQuitter;
+    Button btnRetour;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu);
-        btn_A_Propos = (Button) findViewById(R.id.button3);
+        setContentView(R.layout.activity_options__systeme_);
 
-        btn_A_Propos.setOnClickListener(new View.OnClickListener() {
+        btnQuitter = (Button) findViewById(R.id.button6);
+        btnQuitter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent appel = new Intent(MenuMemory.this, A_Propos_Activity.class);
-                startActivity(appel);
+                System.exit(DEFAULT_KEYS_DISABLE);
             }
         });
 
-        btn_Options_Systeme = (Button) findViewById(R.id.button2);
-
-        btn_Options_Systeme.setOnClickListener(new View.OnClickListener() {
+        btnRetour = (Button) findViewById(R.id.button7);
+        btnRetour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent appel = new Intent(MenuMemory.this, Options_Systeme_Activity.class);
-                startActivity(appel);
-            }
-        });
-
-        btn_jouer = (Button) findViewById(R.id.button);
-
-        btn_jouer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent appel = new Intent(MenuMemory.this, Jeu_Activity.class);
+                Intent appel = new Intent(Options_Systeme_Activity.this, MenuMemory.class);
                 startActivity(appel);
             }
         });
@@ -55,7 +43,7 @@ public class MenuMemory extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_menu, menu);
+        getMenuInflater().inflate(R.menu.menu_options__systeme_, menu);
         return true;
     }
 
