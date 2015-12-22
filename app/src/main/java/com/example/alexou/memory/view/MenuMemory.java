@@ -2,6 +2,7 @@ package com.example.alexou.memory.view;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,16 +14,23 @@ import com.example.alexou.memory.R;
 
 public class MenuMemory extends Activity {
 
+    private int nbCoups=0;
+    private int tempsRestant=100;
+
     Button btn_A_Propos;
 
     Button btn_jouer;
 
     Button btn_Options_Systeme;
 
+    static MediaPlayer player;
+    static boolean sonActive;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+        sonActive=false;
         btn_A_Propos = (Button) findViewById(R.id.button3);
 
         btn_A_Propos.setOnClickListener(new View.OnClickListener() {
@@ -52,6 +60,12 @@ public class MenuMemory extends Activity {
                 startActivity(appel);
             }
         });
+
+        player = MediaPlayer.create(MenuMemory.this, R.raw.setunimaneasy1c85f201060);
+        player.setVolume(100, 100);
+        if(sonActive==true) {
+            player.start();
+        }
     }
 
     @Override

@@ -22,6 +22,21 @@ public class Options_Systeme_Activity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options__systeme_);
 
+        btnSon = (Button) findViewById(R.id.button5);
+        btnSon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(MenuMemory.sonActive==true) {
+                    MenuMemory.player.stop();
+                    MenuMemory.sonActive=false;
+                }
+                else {
+                    MenuMemory.player.start();
+                    MenuMemory.sonActive=true;
+                }
+            }
+        });
+
         btnQuitter = (Button) findViewById(R.id.button6);
         btnQuitter.setOnClickListener(new View.OnClickListener() {
             @Override

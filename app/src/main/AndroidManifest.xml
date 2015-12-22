@@ -27,6 +27,10 @@
             android:name=".view.Jeu_Activity"
             android:label="@string/title_activity_jeu_" >
         </activity>
+        <activity
+            android:name=".view.partie"
+            android:label="@string/title_activity_partie" >
+        </activity>
     </application>
 
 </manifest>
