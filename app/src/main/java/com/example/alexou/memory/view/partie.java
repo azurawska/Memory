@@ -3,6 +3,7 @@ package com.example.alexou.memory.view;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,7 +16,9 @@ import android.widget.Button;
 
 import com.example.alexou.memory.R;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 public class partie extends Activity {
 
@@ -79,9 +82,16 @@ public class partie extends Activity {
     private Bitmap violette;
     private Bitmap voiture;
     private Bitmap windows;
+
     private int[][][] cases;
 
-    private HashMap<Integer, Bitmap[]> associationImages;
+    private static final String fichierScores = "Meilleurs_Scores";
+    private static final String fichierPartieSauvegardee = "Partie_Sauvegardée";
+
+    private SharedPreferences meilleursScores;
+    private SharedPreferences partieEnCours;
+
+    private ArrayList<Integer> images;
 
     private void initAll(Context mcontext) {
         context = mcontext;
@@ -137,6 +147,57 @@ public class partie extends Activity {
         violette = BitmapFactory.decodeResource(resources, R.drawable.violette);
         voiture = BitmapFactory.decodeResource(resources, R.drawable.voiture);
         windows = BitmapFactory.decodeResource(resources, R.drawable.windows);
+
+        images.add(R.drawable.android);
+        images.add(R.drawable.apple_mac);
+        images.add(R.drawable.ballon_basket);
+        images.add(R.drawable.ballon_foot);
+        images.add(R.drawable.ballon_handball);
+        images.add(R.drawable.ballon_rugby);
+        images.add(R.drawable.bananes);
+        images.add(R.drawable.barbapapa);
+        images.add(R.drawable.bonbons);
+        images.add(R.drawable.camion);
+        images.add(R.drawable.canard);
+        images.add(R.drawable.chaise);
+        images.add(R.drawable.chat);
+        images.add(R.drawable.chateau);
+        images.add(R.drawable.chien);
+        images.add(R.drawable.chocolat_au_lait);
+        images.add(R.drawable.chocolat_blanc);
+        images.add(R.drawable.chocolat_noir);
+        images.add(R.drawable.churros);
+        images.add(R.drawable.cyclope);
+        images.add(R.drawable.elephant);
+        images.add(R.drawable.facebook);
+        images.add(R.drawable.firefox);
+        images.add(R.drawable.fleur_de_vanille);
+        images.add(R.drawable.framboise);
+        images.add(R.drawable.gaston_lagaffe);
+        images.add(R.drawable.glace);
+        images.add(R.drawable.hamster);
+        images.add(R.drawable.joconde);
+        images.add(R.drawable.lapin);
+        images.add(R.drawable.linux);
+        images.add(R.drawable.noix_de_coco);
+        images.add(R.drawable.oignon);
+        images.add(R.drawable.pain);
+        images.add(R.drawable.pere_noel);
+        images.add(R.drawable.perroquet);
+        images.add(R.drawable.poire);
+        images.add(R.drawable.poisson);
+        images.add(R.drawable.poulet);
+        images.add(R.drawable.rose);
+        images.add(R.drawable.sapin);
+        images.add(R.drawable.schtroumpf_farceur);
+        images.add(R.drawable.table);
+        images.add(R.drawable.terre);
+        images.add(R.drawable.treffle_quatre_feuilles);
+        images.add(R.drawable.twitter);
+        images.add(R.drawable.vache);
+        images.add(R.drawable.violette);
+        images.add(R.drawable.voiture);
+        images.add(R.drawable.windows);
     }
 
     @Override
@@ -180,6 +241,51 @@ public class partie extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void initPlateauJeu() {
+        ArrayList<Integer> images_ = imagesChoisies(images);
+
+        for(int i=0;i<cases.length;i++) {
+            for(int j=0;j<cases[i].length;j++) {
+                for(int k=1;k<=20;k++) {
+                    cases[i][j][0]=k;
+                    cases[i][j][1]=R.drawable.carre_bleu;
+                }
+                for(int l=0;l<images_.size()-1;l++) {
+                    cases[i][j][3]=images_.get(l);
+                    cases[i+1][j+1][3]=images_.get(l);
+                }
+            }
+        }
+    }
+
+    private ArrayList<Integer> imagesChoisies(ArrayList<Integer> listeImages) {
+
+        ArrayList<Integer> imagesChoisies = new ArrayList<>();
+        ArrayList<Integer> poubelle = new ArrayList<>(); //liste des valeurs répétées
+
+        Random r = new Random();
+
+        int valeurMin = 0;
+        int valeurMax = listeImages.size();
+        int nbImagesChoisies=0;
+
+        while(nbImagesChoisies<10) {
+
+            int valeur = valeurMin + r.nextInt(valeurMax - valeurMin);
+
+            if(!poubelle.contains(valeur)) {
+                imagesChoisies.add(listeImages.get(valeur));
+                poubelle.add(valeur);
+                nbImagesChoisies++;
+            }
+            else {
+                poubelle.add(valeur);
+            }
+        }
+
+        return imagesChoisies;
     }
 
     private class Decompte implements Runnable {
